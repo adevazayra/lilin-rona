@@ -173,8 +173,9 @@ td b{font-weight:600}
 .prod{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;
   display:flex;flex-direction:column;transition:border-color .2s}
 .prod:hover{border-color:var(--amber)}
-.prod .top{height:132px;display:grid;place-items:center;border-bottom:1px solid var(--line);position:relative;overflow:hidden}
-.prod .top img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.prod .top{min-height:132px;border-bottom:1px solid var(--line);position:relative;overflow:hidden}
+.prod .top svg{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%)}
+.prod .top img{position:relative;display:block;width:100%;height:auto}
 .prod .body{padding:20px;flex:1;display:flex;flex-direction:column}
 .prod p{color:var(--muted);font-size:.9rem;margin:8px 0 14px}
 .tagrow{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
@@ -310,7 +311,7 @@ input[type=range].bar::-moz-range-thumb{width:13px;height:13px;border:0;border-r
       <a href="#proses">Proses</a>
       <a href="#produk">Produk</a>
       <a href="#ruang">Ruang Tenang</a>
-      <a href="#gabung">Gabung</a>
+      <a href="#gabung">FAQ</a>
     </div>
     <div class="navtools">
       <button class="icobtn" id="themeBtn" aria-label="Ganti mode gelap atau terang" title="Mode gelap/terang">◐</button>
@@ -477,11 +478,11 @@ input[type=range].bar::-moz-range-thumb{width:13px;height:13px;border:0;border-r
     </div>
     <div class="proc" id="proc"></div>
 
-    <h3 style="margin:38px 0 6px">Komposisi bahan</h3>
-    <p class="lede" style="font-size:.93rem">Formula berikut merupakan percobaan awal untuk pengolahan minyak jelantah menjadi lilin aromaterapi. Setiap bahan memiliki fungsi khusus untuk membantu menghasilkan lilin yang memiliki struktur, warna, aroma, dan karakter pembakaran yang sesuai.</p>
+    <h3 style="margin:38px 0 6px">Komposisi Bahan Utama</h3>
+    <p class="lede" style="font-size:.93rem">RONA mengolah minyak jelantah menjadi lilin aromaterapi dengan memadukan bahan pilihan untuk menghasilkan produk dengan warna, aroma, dan karakter pembakaran yang sesuai. Setiap bahan memiliki peran penting dalam proses pembuatan, mulai dari minyak jelantah yang telah dimurnikan hingga pewarna, fragrance oil, dan sumbu lilin.</p>
     <div class="tablewrap">
       <table>
-        <thead><tr><th>Bahan</th><th>Fungsi</th><th>Rasio</th><th>Catatan</th></tr></thead>
+        <thead><tr><th>Bahan</th><th>Fungsi</th><th>Catatan</th></tr></thead>
         <tbody id="bahan"></tbody>
       </table>
     </div>
@@ -752,22 +753,20 @@ const PROSES = [
 ];
 
 const BAHAN = [
-  ["Minyak Jelantah","Sebagai bahan dasar utama lilin aromaterapi","35–40%","Menggunakan minyak jelantah yang telah melalui proses seleksi, penyaringan, dan pemurnian agar lebih bersih serta bebas dari air dan sisa makanan."],
-  ["Arang Aktif","Membantu mengurangi bau dan kotoran pada minyak","20–25%","Digunakan dalam proses pemurnian untuk membantu menyerap senyawa penyebab bau dan meningkatkan kebersihan minyak sebelum diproses menjadi lilin."],
-  ["Bleaching Earth","Membantu menjernihkan warna minyak","30–35%","Digunakan sebagai bahan penyerap untuk membantu mengurangi warna gelap dan sisa pengotor pada minyak jelantah selama proses pemurnian."],
-  ["Stearic Acid","Membantu meningkatkan kekerasan dan struktur lilin","5–8%","Ditambahkan untuk membantu menghasilkan tekstur lilin yang lebih padat dan stabil. Proses pencampuran dilakukan dengan pengendalian suhu agar bahan dapat tercampur dengan baik."],
-  ["Paraffin Wax","Membentuk struktur dan tekstur lilin","Sesuai formulasi produksi","Digunakan sebagai bahan pembentuk lilin untuk membantu menghasilkan produk yang lebih padat dan memiliki karakter pembakaran yang sesuai."],
-  ["Pewarna Lilin","Memberikan warna pada produk","<1%","Digunakan secukupnya sesuai warna yang diinginkan. Pewarna yang digunakan perlu sesuai untuk aplikasi lilin dan tidak berbasis air."],
-  ["Essential/Fragrance Oil","Memberikan aroma pada lilin","<1%","Ditambahkan untuk memberikan karakter aroma pada lilin. Penggunaan perlu disesuaikan dengan jenis fragrance/essential oil dan formulasi produk."],
-  ["Sumbu Lilin","Media pembakaran lilin","1 pcs untuk setiap 1 lilin","Ukuran sumbu disesuaikan dengan diameter wadah dan karakter formula agar pembakaran dapat berlangsung dengan baik."]
+  ["Minyak Jelantah","Sebagai bahan dasar utama lilin aromaterapi","Menggunakan minyak jelantah yang telah melalui proses seleksi, penyaringan, dan pemurnian agar lebih bersih serta bebas dari air dan sisa makanan."],
+  ["Pewarna Lilin","Memberikan warna pada produk","Digunakan secukupnya sesuai warna yang diinginkan. Pewarna yang digunakan perlu sesuai untuk aplikasi lilin dan tidak berbasis air."],
+  ["Essential/Fragrance Oil","Memberikan aroma pada lilin","Ditambahkan untuk memberikan karakter aroma pada lilin. Penggunaan perlu disesuaikan dengan jenis fragrance/essential oil dan formulasi produk."],
+  ["Sumbu Lilin","Media pembakaran lilin","Ukuran sumbu disesuaikan dengan diameter wadah dan karakter formula agar pembakaran dapat berlangsung dengan baik."]
 ];
 
 /* --- src/data/products.ts ----------------------------------------------- */
 const PRODUK = [
-  { n:"Lavender", d:"Aroma floral yang lembut dan menenangkan, dengan sentuhan segar untuk suasana yang lebih rileks.", tags:["Relaksasi","Kamar Tidur"], burn:"±10 jam", size:"283 g", price:"Rp 35.000", c:"#C9A227", img:"LAVENDER.PNG" },
-  { n:"Jasmine", d:"Aroma bunga melati yang manis dan elegan, memberi kesan hangat dan nyaman.", tags:["Calm","Ruang Tamu"], burn:"±10 jam", size:"283 g", price:"Rp 35.000", c:"#8E86B8", img:"JASMINE.png" },
-  { n:"Lemongrass", d:"Aroma citrus yang segar dan ringan, cocok untuk menciptakan suasana yang bersih dan menyegarkan.", tags:["Fokus","Ruang kerja"], burn:"±10 jam", size:"283 g", price:"Rp 35.000", c:"#63795F", img:"LEMONGRASS.png" },
-  { n:"Eucalyptus", d:"Aroma eucalyptus yang segar dan sejuk, memberikan sensasi bersih dan menyegarkan seperti udara pagi setelah hujan.", tags:["Segar","Ruang Kerja"], burn:"±10 jam", size:"283 g", price:"Rp 35.000", c:"#C08B4E", img:"EUCALYPTUS.png" }
+  { n:"Jasmine", d:"Aroma bunga melati yang manis dan elegan, menciptakan suasana hangat, nyaman, dan menenangkan.", tags:["Meditasi","Relaksasi"], burn:"±10 jam", size:"120ml", price:"Rp 35.000", c:"#8E86B8", img:"Jasmine.jpeg" },
+  { n:"Lychee", d:"Aroma buah leci yang manis, ringan, dan menyegarkan, cocok untuk menghadirkan suasana ceria dan nyaman.", tags:["Focus","Suasana Ceria"], burn:"±10 jam", size:"120ml", price:"Rp 35.000", c:"#63795F", img:"Lychee.jpeg" },
+  { n:"Lemongrass", d:"Aroma serai yang segar dengan sentuhan citrus, menghadirkan sensasi bersih dan segar seperti berada di alam terbuka.", tags:["Focus","Alam"], burn:"±10 jam", size:"120ml", price:"Rp 35.000", c:"#63795F", img:"Lemongrass.jpeg" },
+  { n:"Amber", d:"Aroma hangat dengan nuansa kayu dan resin yang lembut, menciptakan suasana nyaman dan menenangkan seperti sore yang damai.", tags:["Meditation","Tidur"], burn:"±10 jam", size:"120ml", price:"Rp 35.000", c:"#C08B4E", img:"Amber.jpeg" },
+  { n:"Blue Gingham", d:"Aroma lembut dan bersih dengan kesan segar yang ringan, menghadirkan suasana tenang seperti pagi yang cerah.", tags:["Relaxation","Tidur"], burn:"±10 jam", size:"120ml", price:"Rp 35.000", c:"#C08B4E", img:"Blue.jpeg" },
+  { n:"Brown Sugar Coffee", d:"Aroma kopi sangrai yang kaya berpadu dengan manisnya gula merah, menghadirkan suasana hangat dan nyaman seperti menikmati kopi favorit.", tags:["Focus","Ruang Kerja"], burn:"±10 jam", size:"120ml", price:"Rp 35.000", c:"#C08B4E", img:"Brown.jpeg" }
 ];
 
 /* --- src/data/faq.ts ---------------------------------------------------- */
@@ -833,8 +832,7 @@ $("#proc").innerHTML = PROSES.map((p,i)=>`
     <div><h3>${p.t}</h3><p>${p.d}</p></div></article>`).join("");
 
 /* Tabel bahan */
-$("#bahan").innerHTML = BAHAN.map(r=>`<tr><td><b>${r[0]}</b></td><td>${r[1]}</td><td>${r[2]}</td><td>${r[3]}</td></tr>`).join("");
-
+$("#bahan").innerHTML = BAHAN.map(r=>`<tr><td><b>${r[0]}</b></td><td>${r[1]}</td><td>${r[2]}</td></tr>`).join("");
 /* Produk */
 $("#produkGrid").innerHTML = PRODUK.map(p=>`
   <article class="prod rv">
